@@ -1,0 +1,38 @@
+------------------create table ratings------------
+
+CREATE TABLE ratings( id INTEGER NOT 
+NULL AUTO_INCREMENT, order_id 
+INTEGER NOT NULL, food_rating INTEGER, 
+delivery_rating INTEGER, overall_rating 
+INTEGER, 
+PRIMARY KEY (id), 
+FOREIGN KEY (order_id) REFERENCES orders(id)); 
+
+
+------------------create table ratings------------
+
+CREATE TABLE reviews( id INTEGER NOT 
+NULL AUTO_INCREMENT, rating_id 
+INTEGER NOT NULL, food_review TEXT, 
+delivery_review TEXT, overall_review 
+TEXT, 
+PRIMARY KEY (id),
+FOREIGN KEY (rating_id) REFERENCES ratings(id)); 
+
+
+------------------Check values inputed are in between 0-5------------
+
+ALTER TABLE ratings 
+ADD CONSTRAINT chk CHECK (food_rating<=5 && food_rating>=0) 
+ADD CONSTRAINT chk CHECK (delivery_rating<=5 && delivery_rating>=0) 
+ADD CONSTRAINT chk CHECK (overall_rating<=5 && overall_rating>=0); 
+
+
+#----------------------insert values------------------------------------
+
+INSERT INTO ratings(order_id, food_rating, delivery_rating, overall_rating) VALUES(1000, 1, 1, 3); 
+INSERT INTO ratings(order_id, food_rating, delivery_rating, overall_rating) VALUES(1001, 2, 1, 4); 
+INSERT INTO reviews(rating_id, food_review, delivery_review, overall_review) VALUES(1, "okay", 
+"not bad", "pass") 
+INSERT INTO reviews(rating_id, food_review, delivery_review, overall_review) VALUES(2, "horrible", 
+"good driver", "kinda bad"); 

@@ -1,0 +1,102 @@
+4.
+SELECT rider_id , ROUND(AVG(delivery_rating), 1) AS average 
+FROM ratings JOIN orders ON ratings.order_id=orders.id 
+WHERE rider_id = 52
+GROUP BY rider_id; 
+
+6.
+SELECT first_name, last_name, COUNT(orders.id) FROM rider 
+INNER JOIN orders ON orders.rider_id = rider.id 
+INNER JOIN users ON users.id = rider.user_id 
+GROUP BY rider.id, first_name, last_name ORDER BY COUNT(orders.id) DESC LIMIT 3; 
+
+7.
+SELECT restaurant.name AS 'restaurant', food_item.name AS'item', food_item.price AS'price' 
+FROM restaurant 
+JOIN food_item ON restaurant_id = restaurant.id 
+WHERE restaurant.name 
+NOT IN (SELECT restaurant.name FROM restaurant JOIN food_item ON restaurant_id = restaurant.id 
+WHERE price < 10);
+
+8.
+SELECT first_name, last_name, SUM(main) AS main,
+SUM(CASE WHEN main = 0 THEN 1 ELSE 0 END) AS other
+FROM address
+INNER JOIN users ON users.id = address.user_id
+INNER JOIN orders ON orders.delivery_address_id = address.id
+GROUP BY users.id, first_name, last_name
+HAVING SUM(main) > 40 AND other > 0
+ORDER BY main, first_name ASC;
+
+9.
+SELECT food_item.name, restaurant.name
+FROM food_item
+JOIN restaurant ON restaurant_id = restaurant.id
+LEFT JOIN order_item ON food_item.id = food_item_id
+WHERE food_item_id IS NULL;
+
+11.
+SELECT orders.id AS order_id, x.total_amount AS "items total",
+(CASE WHEN x.total_amount < 10 THEN 3
+ WHEN x.total_amount < 20 AND x.total_amount >= 10 THEN 2
+WHEN x.total_amount < 30 AND x.total_amount >= 20 THEN 1
+ELSE 0 
+END) AS delivery,
+(CASE WHEN x.total_amount < 10 THEN x.total_amount + 3
+ WHEN x.total_amount < 20 AND x.total_amount >= 10 THEN x.total_amount + 2
+WHEN x.total_amount < 30 AND x.total_amount >= 20 THEN x.total_amount + 1
+ELSE x.total_amount 
+END) AS total,
+delivery_charge AS "stored delivery charge", 
+(x.total_amount + delivery_charge) AS "stored total"
+FROM orders 
+JOIN
+(SELECT order_id, sum(price * quantity) AS total_amount
+FROM order_item
+JOIN food_item ON food_item_id = food_item.id
+JOIN orders ON order_id = orders.id
+GROUP BY order_id) AS x
+ON orders.id = x.order_id
+WHERE delivery_charge !=
+(CASE WHEN x.total_amount < 10 THEN 3
+ WHEN x.total_amount < 20 AND x.total_amount >= 10 THEN 2
+WHEN x.total_amount < 30 AND x.total_amount >= 20 THEN 1
+ELSE 0 
+END);
+
+12.
+SELECT restaurant_id, 
+(CASE WHEN (SELECT AVG(food_rating) 
+FROM ratings JOIN orders ON ratings.order_id=orders.id 
+WHERE order_date > CURDATE() - INTERVAL 28 DAY AND restaurant_id = 167 GROUP BY 
+restaurant_id) IS NULL 
+ THEN "error" 
+ELSE (SELECT ROUND(AVG(food_rating), 1) 
+FROM ratings JOIN orders ON ratings.order_id=orders.id 
+WHERE order_date > CURDATE() - INTERVAL 28 DAY AND restaurant_id = 167 GROUP BY 
+restaurant_id) 
+END) AS average_food, 
+(CASE WHEN (SELECT AVG(delivery_rating) 
+FROM ratings JOIN orders ON ratings.order_id=orders.id 
+WHERE order_date > CURDATE() - INTERVAL 28 DAY AND restaurant_id = 167 GROUP BY 
+restaurant_id) IS NULL 
+ THEN "error" 
+ELSE (SELECT ROUND(AVG(delivery_rating), 1) 
+FROM ratings JOIN orders ON ratings.order_id=orders.id 
+WHERE order_date > CURDATE() - INTERVAL 28 DAY AND restaurant_id = 167 GROUP BY 
+restaurant_id) 
+END) AS average_delivery, 
+(CASE WHEN (SELECT AVG(overall_rating) 
+FROM ratings JOIN orders ON ratings.order_id=orders.id 
+WHERE order_date > CURDATE() - INTERVAL 28 DAY AND restaurant_id = 167 GROUP BY 
+restaurant_id) IS NULL 
+ THEN "error" 
+ELSE (SELECT ROUND(AVG(overall_rating), 1) 
+FROM ratings JOIN orders ON ratings.order_id=orders.id 
+WHERE order_date > CURDATE() - INTERVAL 28 DAY AND restaurant_id = 167 GROUP BY 
+restaurant_id) 
+END) AS average_overall 
+FROM ratings INNER JOIN orders ON ratings.order_id=orders.id 
+WHERE restaurant_id = 167 
+GROUP BY average_overall, average_delivery, average_food, restaurant_id;
+

@@ -1,0 +1,61 @@
+6.
++------------+-----------+------------+
+| first_name | last_name | deliveries |
++------------+-----------+------------+
+| Jaelyn | Howell | 789 |
+| Fatima | Travis | 785 |
+| Ariyanna | Hicks | 781 |
++------------+-----------+------------+
+
+
+7.
++---------------------------------------+---------------------------------------+-------+
+| restaurant | item | price |
++---------------------------------------+---------------------------------------+-------+
+| Krispy Kreme - Edinburgh Lothian Road | 6 Assorted Doughnuts | 12.95 |
+| Krispy Kreme - Edinburgh Lothian Road | Original Glazed Dozen | 14.95 |
+| Krispy Kreme - Edinburgh Lothian Road | Original Glazed Double Dozen | 23.95 |
+| Krispy Kreme - Edinburgh Lothian Road | Sharer Dozen | 17.95 |
+| Krispy Kreme - Edinburgh Lothian Road | Original Glazed & Sharer Double Dozen | 24.95 |
+| Krispy Kreme - Edinburgh Lothian Road | Sharer Double Dozen | 27.95 |
++---------------------------------------+---------------------------------------+-------+
+
+
+8.
++------------+-----------+------+-------+
+| first_name | last_name | main | other |
++------------+-----------+------+-------+
+| Derek | Parsons | 41 | 3 |
+| Eve | Leroy | 41 | 3 |
+| Gunner | Bentley | 42 | 2 |
+| Stanley | Wilkerson | 42 | 1 |
+| Jaylen | Leonard | 43 | 2 |
+| Emma | Reynolds | 44 | 3 |
+| Reilly | Ellison | 46 | 3 |
+| Aniyah | Velasquez | 49 | 2 |
++------------+-----------+------+-------+
+
+
+9.
++-------------------------------------------+----------------------------------------------+
+| restaurant | item |
++-------------------------------------------+----------------------------------------------+
+| Starbucks - Edinburgh - Waverley Steps | Cinnamon Swirl |
+| Starbucks - Edinburgh - The Cube | Strawberry & Cream Cake |
+| Starbucks - Edinburgh - The Cube | Rainbow Veg & Bean Protein Pot (plant based) |
+| Starbucks - Edinburgh - The Cube | Hickory Ham & Cheese Toastie |
+| STARBUCKS® - Edinburgh - Canongate | Pain au Chocolat |
+| Starbucks - Edinburgh- Middle Meadow Walk | Oat & Raisin Cookie |
+| Starbucks - Edinburgh- Middle Meadow Walk | Tomato & Mozzarella Panini |
+| Starbucks - Edinburgh - Haymarket Station | Cheese and Marmite™ Panini |
+| Greggs - Edinburgh, Forrest Road | Porridge (GF) Original |
+| Greggs - Edinburgh, Newington | Breakfast Omelette Baguette |
++-------------------------------------------+----------------------------------------------+
+
+
+11.
++----------+-------------+----------+-------+------------------------+--------------+
+| order_id | items total | delivery | total | stored delivery charge | stored total |
++----------+-------------+----------+-------+------------------------+--------------+
+| 89625 | 30.00 | 0 | 30.00 | 3.00 | 33.00 |
++----------+-------------+----------+-------+------------------------+--------------+
